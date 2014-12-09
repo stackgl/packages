@@ -1,0 +1,166 @@
+<h1 id="glslify">glslify</h1>
+<p>a module system for GLSL and a transform enabling easy access to GLSL Shaders in JavaScript.</p>
+<h2 id="as-a-browserify-transform-">As a Browserify transform:</h2>
+<pre><code class="lang-bash"><span class="nv">$ </span>npm install --save glslify
+<span class="nv">$ </span>browserify entry.js -t glslify &gt; bundle.js
+</code></pre>
+<p>glslify will find and replace all instances of <code>glslify({vertex: path, fragment: path})</code>
+with a function that takes a webgl context and returns a <a href="http://npm.im/gl-shader-core">shader instance</a>.</p>
+<p>Recommended usage:</p>
+<pre><code class="lang-javascript"><span class="kd">var</span> <span class="nx">glslify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&apos;glslify&apos;</span><span class="p">)</span>    <span class="c1">// requiring `glslify` is safe in this context.</span>
+                                    <span class="c1">// if the program is run without the transform,</span>
+                                    <span class="c1">// it&apos;ll output a helpful error message.</span>
+<span class="kd">var</span> <span class="nx">shell</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&apos;gl-now&apos;</span><span class="p">)()</span>
+
+<span class="kd">var</span> <span class="nx">createShader</span> <span class="o">=</span> <span class="nx">glslify</span><span class="p">({</span>
+    <span class="nx">vertex</span><span class="o">:</span> <span class="s1">&apos;./vertex.glsl&apos;</span>
+  <span class="p">,</span> <span class="nx">fragment</span><span class="o">:</span> <span class="s1">&apos;./fragment.glsl&apos;</span>
+<span class="p">})</span>
+
+<span class="kd">var</span> <span class="nx">program</span>
+
+<span class="nx">shell</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&apos;gl-init&apos;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">program</span> <span class="o">=</span> <span class="nx">createShader</span><span class="p">(</span><span class="nx">shell</span><span class="p">.</span><span class="nx">gl</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre>
+<p>As part of the transform, the program will be analyzed for its <strong>uniforms</strong> and <strong>attributes</strong>,
+so once you have a <code>program</code> instance, the following will work:</p>
+<pre><code class="lang-javascript"><span class="c1">// given a glsl program containing:</span>
+<span class="c1">//</span>
+<span class="c1">//   uniform vec2 color;</span>
+<span class="c1">//   uniform mat4 view;</span>
+
+<span class="nx">program</span><span class="p">.</span><span class="nx">bind</span><span class="p">()</span>
+<span class="nx">program</span><span class="p">.</span><span class="nx">uniforms</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="nx">program</span><span class="p">.</span><span class="nx">uniforms</span><span class="p">.</span><span class="nx">view</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+<span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+<span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span>
+<span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+<span class="p">]</span>
+</code></pre>
+<p>The following options may be passed into glslify&apos;s transformed constructor:</p>
+<ul>
+<li><code>fragment</code>: the fragment shader to use.</li>
+<li><code>vertex</code>: the vertex shader to use.</li>
+<li><code>inline</code>: instead of loading the vertex/fragment shaders from a file path,
+use the string values of these options directly to generate the shaders.</li>
+<li><code>transform</code>: a string or array of strings naming browserify-transform stream
+modules you would like to use to transform these shaders.</li>
+</ul>
+<h2 id="as-a-glsl-module-system-">As a GLSL module system:</h2>
+<p>glslify can be run as a standalone command as well:</p>
+<pre><code class="lang-bash"><span class="nv">$ </span>glslify my-module.glsl &gt; output.glsl
+</code></pre>
+<p>glslify allows you to write GLSL modules that export a local function, variable, or type,
+and <code>require</code> those modules to bring that export into another module.</p>
+<p>Lookups work like node&apos;s <code>require</code> -- that is, it&apos;ll work relatively to the file first,
+and then work from the file&apos;s directory on up to the root directory looking for a package
+in <code>node_modules/</code>.</p>
+<h2 id="example-files">example files</h2>
+<table>
+<thead>
+<tr>
+<th><a href="#mainglsl"><code>main.glsl</code></a></th>
+<th><a href="#file1glsl"><code>file1.glsl</code></a></th>
+<th><a href="#file2glsl"><code>file2.glsl</code></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="main-glsl">main.glsl</h3>
+<p><a href="#example-files">back to file list</a></p>
+<pre><code class="lang-c"><span class="c1">// main.glsl</span>
+<span class="n">precision</span> <span class="n">highp</span> <span class="kt">float</span><span class="p">;</span>
+<span class="n">uniform</span> <span class="kt">float</span> <span class="n">time</span><span class="p">;</span>
+<span class="n">uniform</span> <span class="n">vec2</span> <span class="n">mouse</span><span class="p">;</span>
+<span class="n">uniform</span> <span class="n">vec2</span> <span class="n">resolution</span><span class="p">;</span>
+
+<span class="c1">// require a function from another file!</span>
+<span class="cp">#pragma glslify: program_one = require(./file1)</span>
+
+<span class="c1">// require a function from another file, and replace</span>
+<span class="c1">// `local_value` in that file with `resolution.x` from</span>
+<span class="c1">// this scope.</span>
+<span class="cp">#pragma glslify: program_two = require(./file2, local_value=resolution.x)</span>
+
+<span class="kt">int</span> <span class="nf">modulo</span><span class="p">(</span><span class="kt">float</span> <span class="n">x</span><span class="p">,</span> <span class="kt">float</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kt">int</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="n">floor</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="n">y</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">ivec2</span> <span class="n">m</span> <span class="o">=</span> <span class="n">ivec2</span><span class="p">(</span><span class="n">modulo</span><span class="p">(</span><span class="n">gl_FragCoord</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="mf">2.</span><span class="p">),</span> <span class="n">modulo</span><span class="p">(</span><span class="n">gl_FragCoord</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="mf">2.</span><span class="p">));</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">m</span><span class="p">.</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">program_one</span><span class="p">();</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
+    <span class="n">program_two</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id="file1-glsl">file1.glsl</h3>
+<p><a href="#example-files">back to file list</a></p>
+<pre><code class="lang-c"><span class="c1">// file1.glsl</span>
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">gl_FragColor</span> <span class="o">=</span> <span class="n">vec4</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cp">#pragma glslify: export(main)</span>
+</code></pre>
+<h3 id="file2-glsl">file2.glsl</h3>
+<p><a href="#example-files">back to file list</a></p>
+<pre><code class="lang-c"><span class="c1">// file2.glsl</span>
+
+<span class="n">uniform</span> <span class="kt">float</span> <span class="n">local_value</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">gl_FragColor</span> <span class="o">=</span> <span class="n">vec4</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">local_value</span><span class="p">,</span> <span class="mf">1.</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cp">#pragma glslify: export(main)</span>
+</code></pre>
+<h1 id="glsl-api">GLSL API</h1>
+<p>GLSLify works by mangling top-level identities in non-root modules.</p>
+<p>Exported variables will be aliased on requirement.</p>
+<h3 id="-pragma-glslify-variable-require-module-name-expr-">#pragma glslify: VARIABLE = require(MODULE[, NAME=EXPR])</h3>
+<p>Import a module and assign it the name <code>VARIABLE</code> in the local program.</p>
+<p><code>MODULE</code> may be located within <code>node_modules/</code> or relative to the current file.</p>
+<p><strong>Quotes are not allowed.</strong></p>
+<p>If the target module defines <code>attribute</code>, <code>varying</code>, or <code>uniform</code> global variables,
+you may map those to a local definition or expression:</p>
+<pre><code class="lang-c"><span class="n">attribute</span> <span class="n">vec4</span> <span class="n">position</span><span class="p">;</span>
+<span class="cp">#pragma glslify: x = require(./takes_vec2, module_variable=position.xy)</span>
+</code></pre>
+<p>If a mapping is not defined, those requirements are forwarded on to the module requiring
+the current module -- if no mappings are found for a definition, an error is raised.</p>
+<h3 id="-pragma-glslify-export-name-">#pragma glslify: export(NAME)</h3>
+<p>Exports a local name from the current module. If the current module is the root, this is
+a no-op. There may be only one exported <code>NAME</code> per module. The <code>NAME</code> may represent a
+type, function, or variable.</p>
+<h1 id="with-threejs">With ThreeJS</h1>
+<p>You can use the <code>sourceOnly</code> option to integrate glslfiy with ThreeJS and other WebGL frameworks. This will return an object with <code>vertex</code> and <code>fragment</code> shader source, which you can then compile yourself.</p>
+<p>In ThreeJS it might look like this:  </p>
+<pre><code class="lang-js"><span class="kd">var</span> <span class="nx">myShader</span> <span class="o">=</span> <span class="nx">glslify</span><span class="p">({</span>
+    <span class="nx">vertex</span><span class="o">:</span> <span class="s1">&apos;./vertex.glsl&apos;</span><span class="p">,</span>
+    <span class="nx">fragment</span><span class="o">:</span> <span class="s1">&apos;./fragment.glsl&apos;</span><span class="p">,</span>
+    <span class="nx">sourceOnly</span><span class="o">:</span> <span class="kc">true</span>
+<span class="p">});</span>
+
+<span class="c1">//optionally do something with our uniforms/attribs</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">myShader</span><span class="p">.</span><span class="nx">uniforms</span><span class="p">,</span> <span class="nx">myShader</span><span class="p">.</span><span class="nx">attributes</span> <span class="p">);</span>
+
+<span class="c1">//setup custom ThreeJS material...</span>
+<span class="kd">var</span> <span class="nx">mat</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">ShaderMaterial</span><span class="p">({</span>
+    <span class="nx">vertexShader</span><span class="o">:</span> <span class="nx">myShader</span><span class="p">.</span><span class="nx">vertex</span><span class="p">,</span>
+    <span class="nx">fragmentShader</span><span class="o">:</span> <span class="nx">myShader</span><span class="p">.</span><span class="nx">fragment</span>
+    <span class="nx">uniforms</span><span class="o">:</span> <span class="p">{</span> 
+      <span class="c1">// setup your uniforms..</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+<h1 id="license">License</h1>
+<p>MIT</p>

@@ -1,0 +1,61 @@
+<h1 id="glsl-parser">glsl-parser</h1>
+<p>a through stream that takes tokens from <a href="https://github.com/chrisdickinson/glsl-tokenizer">glsl-tokenizer</a> and turns them into
+an AST.</p>
+<pre><code class="lang-javascript"><span class="kd">var</span> <span class="nx">tokenizer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&apos;glsl-tokenizer&apos;</span><span class="p">)()</span>
+  <span class="p">,</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&apos;fs&apos;</span><span class="p">)</span>
+  <span class="p">,</span> <span class="nx">parser</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&apos;./index&apos;</span><span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="s1">&apos;test.glsl&apos;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">tokenizer</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">parser</span><span class="p">())</span>
+  <span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&apos;data&apos;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&apos;ast of&apos;</span><span class="p">,</span> <span class="nx">x</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span>
+  <span class="p">})</span>
+</code></pre>
+<p>similar to <a href="https://github.com/dominictarr/JSONStream">JSONStream</a>, you may pass selectors
+into the constructor to match only AST elements at that level. viable selectors are strings
+and regexen, and they&apos;ll be matched against the emitted node&apos;s <code>type</code>.</p>
+<h2 id="nodes">nodes</h2>
+<pre><code>
+stmtlist
+stmt
+struct
+function
+functionargs
+decl
+decllist
+forloop
+whileloop
+if
+expr
+precision
+comment
+preprocessor
+keyword
+ident
+return
+continue
+break
+discard
+do-while
+binary
+ternary
+unary
+</code></pre><h1 id="legal-caveats">legal &amp; caveats</h1>
+<h2 id="known-bugs">known bugs</h2>
+<ul>
+<li><p>because i am not smart enough to write a fully streaming parser, the current parser &quot;cheats&quot; a bit when it encounters a <code>expr</code> node! it actually waits until it has all the tokens it needs to build a tree for a given expression, then builds it and emits the constituent child nodes in the expected order. the <code>expr</code> parsing is heavily influenced by <a href="http://javascript.crockford.com/tdop/tdop.html">crockford&apos;s tdop article</a>. the rest of the parser is heavily influenced by fever dreams.</p>
+</li>
+<li><p>the parser might hit a state where it&apos;s looking at what <em>could be</em> an expression, or it could be a declaration --
+that is, the statement starts with a previously declared <code>struct</code>. it&apos;ll opt to pretend it&apos;s a declaration, but that
+might not be the case -- it might be a user-defined constructor starting a statement!</p>
+</li>
+<li><p>&quot;unhygenic&quot; <code>#if</code> / <code>#endif</code> macros are completely unhandled at the moment, since they&apos;re a bit of a pain.
+if you&apos;ve got unhygenic macros in your code, move the #if / #endifs to statement level, and have them surround
+wholly parseable code. this sucks, and i am sorry.</p>
+</li>
+</ul>
+<h2 id="license">license</h2>
+<p>MIT</p>

@@ -1,0 +1,65 @@
+.package-list {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 325px;
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #fff;
+}
+
+.stackgl-readme {
+  margin-left: 325px;
+  padding-left: 2rem;
+  max-width: 600px;
+}
+
+.package-list h1,
+.package-list h2 {
+  font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+  font-weight: 300;
+  margin: 0;
+  margin-bottom: 0.3em;
+  padding: 0;
+  color: #34363B;
+}
+
+.package-list h1 {
+  font-size: 2rem;
+  font-weight: 100;
+  margin-bottom: 2rem;
+  cursor: pointer;
+}
+
+.package-list a {
+  color: #34363B;
+  text-decoration: none;
+}
+
+.package-list h1 .light {
+  color: #A9B0C2;
+}
+
+.package-list h2 {
+  font-size: 1.25rem;
+  margin-top: 1.5em;
+}
+
+.package-list h2:first-child {
+  margin-top: 0;
+}
+
+.package-list ul {
+  font-family: 'Fantasque Sans Mono', 'Ubuntu Mono', 'Inconsolata', monospace;
+  color: #66C4FF;
+  line-height: 1.5em;
+  font-size: 0.9rem;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.package-list li {
+  cursor: pointer;
+}
