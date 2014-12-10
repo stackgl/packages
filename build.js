@@ -139,6 +139,13 @@ function getReadme(target, next) {
     }, function(err, content) {
       if (err) return next(err)
 
+      var replaced = false
+
+      content = content.replace(/<\!--\s+?iframe\:(.*)\s+?-->/g, function(_, uri) {
+        replaced = true
+        return '<iframe scrolling="no" seamless="seamless" src="'+uri.trim()+'"></iframe>'
+      })
+
       var $ = cheerio.load(content)
 
       // Remove badges
@@ -148,12 +155,11 @@ function getReadme(target, next) {
       $('img[src^="https://nodei.co"]').remove()
       $('h1 img').remove()
 
-      if (target.uri) {
+      if (!replaced && target.uri) {
         var headings = $('h1, h2, h3, h4, h5, h6')
         var iframe = $('<iframe scrolling="no" seamless="seamless" src="'+target.uri+'"></iframe>')
         var img = $('img')
         var headingCount = 0
-        var replaced = false
 
         // Replace the first image between the first and
         // second headers with the iframe, if possible
