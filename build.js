@@ -39,6 +39,19 @@ ghauth({
           path.join(builddir, 'repos.json')
         , JSON.stringify(categorize(repos))
       )
+
+      var readme = fs.readFileSync(
+        path.join(__dirname, '/README.md')
+      , 'utf8')
+
+      formatReadme(readme, false, function(err, html) {
+        if (err) throw err
+
+        fs.writeFileSync(
+            path.join(builddir, 'main.json')
+          , JSON.stringify({ content: html })
+        )
+      })
     })
   })
 })
@@ -126,64 +139,8 @@ function getReadme(target, next) {
 
     body = new Buffer(body.content, 'base64').toString()
 
-    marked(body, {
-      highlight: function(code, lang, done) {
-        if (!lang) return done(null, code)
-        pygmentize({ lang: lang, format: 'html' }, code, function(err, result) {
-          result = String(result)
-          result = cheerio.load(result)('.highlight > pre').html()
-          result = result.trim()
-          done(err, result)
-        })
-      }
-    }, function(err, content) {
+    formatReadme(body, target.uri, function(err, content) {
       if (err) return next(err)
-
-      var replaced = false
-
-      content = content.replace(/<\!--\s+?iframe\:(.*)\s+?-->/g, function(_, uri) {
-        replaced = true
-        return '<iframe scrolling="no" seamless="seamless" src="'+uri.trim()+'"></iframe>'
-      })
-
-      var $ = cheerio.load(content)
-
-      // Remove badges
-      $('img[src^="http://img.shields.io"]').remove()
-      $('img[src^="http://badges.github.io"]').remove()
-      $('img[src^="http://nodei.co"]').remove()
-      $('img[src^="https://nodei.co"]').remove()
-      $('h1 img').remove()
-
-      if (!replaced && target.uri) {
-        var headings = $('h1, h2, h3, h4, h5, h6')
-        var iframe = $('<iframe scrolling="no" seamless="seamless" src="'+target.uri+'"></iframe>')
-        var img = $('img')
-        var headingCount = 0
-
-        // Replace the first image between the first and
-        // second headers with the iframe, if possible
-        $('h1, h2, h3, h4, h5, h6, img').each(function(i, el) {
-          if (headingCount++ === 1 && el.name === 'img') {
-            var $el = $(el)
-            if ($el.parent()[0].name === 'a') $el = $el.parent()
-            $el.replaceWith(iframe)
-            replaced = true
-          }
-        })
-
-        if (!replaced) {
-          if (headings[1]) {
-            // Insert before the second heading
-            $(headings[1]).before(iframe)
-          } else {
-            // Insert or after the first, if there's only one
-            $(headings[0]).after(iframe)
-          }
-        }
-      }
-
-      content = $.html()
 
       mkdirp(path.dirname(dst), function(err) {
         if (err) return next(err)
@@ -191,6 +148,68 @@ function getReadme(target, next) {
         fs.writeFile(dst, content, next)
       })
     })
+  })
+}
+
+function formatReadme(body, uri, done) {
+  marked(body, {
+    highlight: function(code, lang, done) {
+      if (!lang) return done(null, code)
+      pygmentize({ lang: lang, format: 'html' }, code, function(err, result) {
+        result = String(result)
+        result = cheerio.load(result)('.highlight > pre').html()
+        result = result.trim()
+        done(err, result)
+      })
+    }
+  }, function(err, content) {
+    if (err) return done(err)
+
+    var replaced = false
+
+    content = content.replace(/<\!--\s+?iframe\:(.*)\s+?-->/g, function(_, uri) {
+      replaced = true
+      return '<iframe scrolling="no" seamless="seamless" src="'+uri.trim()+'"></iframe>'
+    })
+
+    var $ = cheerio.load(content)
+
+    // Remove badges
+    $('img[src^="http://img.shields.io"]').remove()
+    $('img[src^="http://badges.github.io"]').remove()
+    $('img[src^="http://nodei.co"]').remove()
+    $('img[src^="https://nodei.co"]').remove()
+    $('h1 img').remove()
+
+    if (!replaced && uri) {
+      var headings = $('h1, h2, h3, h4, h5, h6')
+      var iframe = $('<iframe scrolling="no" seamless="seamless" src="'+uri+'"></iframe>')
+      var img = $('img')
+      var headingCount = 0
+
+      // Replace the first image between the first and
+      // second headers with the iframe, if possible
+      $('h1, h2, h3, h4, h5, h6, img').each(function(i, el) {
+        if (headingCount++ === 1 && el.name === 'img') {
+          var $el = $(el)
+          if ($el.parent()[0].name === 'a') $el = $el.parent()
+          $el.replaceWith(iframe)
+          replaced = true
+        }
+      })
+
+      if (!replaced) {
+        if (headings[1]) {
+          // Insert before the second heading
+          $(headings[1]).before(iframe)
+        } else {
+          // Insert or after the first, if there's only one
+          $(headings[0]).after(iframe)
+        }
+      }
+    }
+
+    done(null, $.html())
   })
 }
 
