@@ -1,6 +1,7 @@
 {
   "name": "@stackgl/packages",
   "private": true,
+  "version": "1.0.0",
   "scripts": {
     "start": "beefy index.js:bundle.js",
     "build": "DEBUG=* node build && browserify index.js -o bundle.js"
