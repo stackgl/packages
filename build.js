@@ -9,6 +9,7 @@ var mkdirp     = require('mkdirp')
 var path       = require('path')
 var fs         = require('fs')
 
+var src = 'https://raw.githubusercontent.com/wiki/stackgl/packages/Packages.md'
 var builddir = path.join(__dirname, 'build')
 var token
 
@@ -18,7 +19,7 @@ ghauth({
   if (err) throw err
   token = auth.token
 
-  fs.readFile('list.md', 'utf8', function(err, data) {
+  request.get(src, function(err, res, data) {
     if (err) throw err
 
     map(getRepos(data), 2, function(repo, next) {
