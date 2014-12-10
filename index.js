@@ -6,6 +6,7 @@ var xhr       = require('xhr')
 var fs        = require('fs')
 
 var template = minstache.compile(fs.readFileSync(__dirname + '/list.html', 'utf8'))
+var main     = require('./build/main.json').content
 var repos    = require('./build/repos.json')
 
 var readme = document.getElementById('package-readme')
@@ -15,6 +16,8 @@ var title  = list.querySelector('h1')
 var categories = Object.keys(repos).map(function(k) {
   return { name: k, repos: repos[k] }
 })
+
+readme.innerHTML = main
 
 list.innerHTML = template({ categories: categories })
 list.addEventListener('click', function(e) {

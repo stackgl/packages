@@ -1,0 +1,37 @@
+<h1 id="gl-toy">gl-toy</h1>
+<p><a href="https://npmjs.org/package/gl-toy"><img src="https://img.shields.io/npm/v/gl-toy.svg?style=flat-square" alt="NPM version"></a>
+<a href="https://npmjs.org/package/gl-toy"></a></p>
+<p>Create quick WebGL demo&apos;s using <a href="http://github.com/stackgl/glslify"><code>glslify</code></a>.</p>
+<h2 id="installation">Installation</h2>
+<pre><code class="lang-bash"><span class="nv">$ </span>npm install gl-toy
+</code></pre>
+<h2 id="usage">Usage</h2>
+<pre><code class="lang-js"><span class="kd">var</span> <span class="nx">glslify</span>   <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&apos;glslify&apos;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">toy</span>       <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&apos;gl-toy&apos;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">shader</span> <span class="o">=</span> <span class="nx">glslify</span><span class="p">({</span>
+  <span class="nx">vert</span><span class="o">:</span> <span class="s1">&apos;shader.vert&apos;</span><span class="p">,</span>
+  <span class="nx">frag</span><span class="o">:</span> <span class="s1">&apos;shader.frag&apos;</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">start</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+
+<span class="nx">toy</span><span class="p">(</span><span class="nx">shader</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">gl</span><span class="p">,</span> <span class="nx">shader</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">shader</span><span class="p">.</span><span class="nx">uScreenSize</span> <span class="o">=</span> <span class="p">[</span><span class="nx">gl</span><span class="p">.</span><span class="nx">drawingBufferWidth</span><span class="p">,</span> <span class="nx">gl</span><span class="p">.</span><span class="nx">drawingBufferHeight</span><span class="p">];</span>
+  <span class="nx">shader</span><span class="p">.</span><span class="nx">uTime</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nx">start</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre>
+<p>With <a href="http://ghub.io/beefy">beefy</a> installed:</p>
+<pre><code class="lang-js"><span class="nx">$</span> <span class="nx">beefy</span> <span class="p">.</span><span class="o">/</span><span class="nx">index</span><span class="p">.</span><span class="nx">js</span>
+</code></pre>
+<h2 id="why-">Why?</h2>
+<p>WebGL and GLSLify can be a bit tricky to set up. This makes it easier to get
+something working quickly. It might not suit all use cases, but then again:
+neither does <a href="https://www.shadertoy.com/">shadertoy</a>.</p>
+<h2 id="contributors">Contributors</h2>
+<ul>
+<li><a href="https://github.com/yoshuawuyts">Yoshua Wuyts</a></li>
+<li><a href="https://github.com/hughsk">Hugh Kennedy</a></li>
+</ul>
+<h2 id="license">License</h2>
+<p><a href="https://tldrlegal.com/license/mit-license">MIT</a></p>

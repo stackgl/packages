@@ -1,0 +1,18 @@
+<h1 id="webgl-context">webgl-context</h1>
+<p><a href="http://github.com/badges/stability-badges"></a></p>
+<p>Grabs a WebGLRenderingContext and will return null if it doesn&apos;t exist.</p>
+<h2 id="usage">Usage</h2>
+<p><a href="https://nodei.co/npm/webgl-context/"></a></p>
+<pre><code class="lang-js"><span class="c1">//get a GL context, will be null if not found</span>
+<span class="kd">var</span> <span class="nx">gl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&apos;webgl-context&apos;</span><span class="p">)();</span>
+</code></pre>
+<pre><code class="lang-js"><span class="c1">//or with optional settings...</span>
+<span class="kd">var</span> <span class="nx">gl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&apos;webgl-context&apos;</span><span class="p">)({</span>
+    <span class="nx">canvas</span><span class="o">:</span> <span class="nx">canvas</span><span class="p">,</span> <span class="c1">//the canvas DOM element to use</span>
+    <span class="nx">width</span><span class="o">:</span> <span class="mi">400</span><span class="p">,</span> <span class="c1">//resizes the canvas..</span>
+    <span class="nx">height</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span> 
+    <span class="nx">attributes</span><span class="o">:</span> <span class="p">{</span> <span class="nx">failIfMajorPerformanceCaveat</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span> <span class="c1">//custom attributes</span>
+<span class="p">});</span>
+</code></pre>
+<h2 id="license">License</h2>
+<p>MIT, see <a href="http://github.com/mattdesl/webgl-context/blob/master/LICENSE.md">LICENSE.md</a> for details.</p>
