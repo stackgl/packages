@@ -17,7 +17,8 @@ var categories = Object.keys(repos).map(function(k) {
   return { name: k, repos: repos[k] }
 })
 
-initBody()
+updateBody()
+window.addEventListener('hashchange', updateBody, false)
 
 list.innerHTML = template({ categories: categories })
 list.addEventListener('click', function(e) {
@@ -30,39 +31,25 @@ list.addEventListener('click', function(e) {
   var user = el.getAttribute('data-user')
   var name = el.getAttribute('data-name')
 
-  getBody({ user: user, name: name })
+  window.location = '#' + [user, name].join('/')
 
   e.preventDefault()
   e.stopPropagation()
   return false
 }, false)
 
-/**
- * Init the content body.
- */
-function initBody() {
-  var location = window.location.hash.replace('#', '')
-  if ('' == location) return readme.innerHTML = main
-  var arr = location.split('/');
-  getBody({ user: arr[0], name: arr[1] })
-}
+function updateBody() {
+  var location = String(window.location.hash).replace('#', '')
+  if (!location) return readme.innerHTML = main
 
-/**
- * Retrieve and set the content body.
- *
- * @param {Object} opts
- *  @prop {String} user
- *  @prop {String} name 
- */
-function getBody(opts) {
-  var user = opts.user
-  var name = opts.name
+  var arr = location.split('/')
+  var user = arr[0]
+  var name = arr[1]
   var uri = ['build', user, name].join('/') + '.html'
 
   xhr({ uri: uri }, function(err, res, body) {
     if (err) throw err
     window.scrollTo(0, 0)
     readme.innerHTML = body
-    window.location = '#' + [user, name].join('/')
   })
 }
