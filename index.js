@@ -17,7 +17,7 @@ var categories = Object.keys(repos).map(function(k) {
   return { name: k, repos: repos[k] }
 })
 
-readme.innerHTML = main
+initBody()
 
 list.innerHTML = template({ categories: categories })
 list.addEventListener('click', function(e) {
@@ -29,15 +29,40 @@ list.addEventListener('click', function(e) {
 
   var user = el.getAttribute('data-user')
   var name = el.getAttribute('data-name')
-  var uri  = ['build', user, name].join('/') + '.html'
 
-  xhr({ uri: uri }, function(err, res, body) {
-    if (err) throw err
-    window.scrollTo(0, 0)
-    readme.innerHTML = body
-  })
+  getBody({ user: user, name: name })
 
   e.preventDefault()
   e.stopPropagation()
   return false
 }, false)
+
+/**
+ * Init the content body.
+ */
+function initBody() {
+  var location = window.location.hash.replace('#', '')
+  if ('' == location) return readme.innerHTML = main
+  var arr = location.split('/');
+  getBody({ user: arr[0], name: arr[1] })
+}
+
+/**
+ * Retrieve and set the content body.
+ *
+ * @param {Object} opts
+ *  @prop {String} user
+ *  @prop {String} name 
+ */
+function getBody(opts) {
+  var user = opts.user
+  var name = opts.name
+  var uri = ['build', user, name].join('/') + '.html'
+
+  xhr({ uri: uri }, function(err, res, body) {
+    if (err) throw err
+    window.scrollTo(0, 0)
+    readme.innerHTML = body
+    window.location = '#' + [user, name].join('/')
+  })
+}
