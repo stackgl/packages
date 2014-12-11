@@ -8,7 +8,7 @@ require('insert-css')(require('stackgl-readme-css'))
 var findup    = require('findup-element')
 var minstache = require('minstache')
 var xhr       = require('xhr')
-var template = minstache.compile("<a href=\"http://stack.gl\" target=\"_blank\">\n  <h1>#stack<span class=\"light\">gl</span></h1>\n</a>\n<div>\n  {{#categories}}\n    <h2>{{name}}</h2>\n    <ul>\n      {{#repos}}\n        <li data-user=\"{{user}}\"\n            data-name=\"{{name}}\"\n        >{{user}}/{{name}}</li>\n      {{/repos}}\n    </ul>\n  {{/categories}}\n</div>\n")
+var template = minstache.compile("<a href=\"http://stack.gl\" target=\"_blank\">\n  <h1>#stack<span class=\"light\">gl</span></h1>\n</a>\n<div>\n  {{#categories}}\n    <h2>{{name}}</h2>\n    <ul>\n      {{#repos}}\n        <li data-user=\"{{user}}\"\n            data-name=\"{{name}}\"\n        >{{name}}</li>\n      {{/repos}}\n    </ul>\n  {{/categories}}\n</div>\n")
 var main     = require('./build/main.json').content
 var repos    = require('./build/repos.json')
 
