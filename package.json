@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "beefy index.js:bundle.js",
-    "build": "DEBUG=* node build && browserify index.js -o bundle.js"
+    "build": "DEBUG=* node build && npm run bundle",
+    "bundle": "browserify index.js | uglifyjs -cm > bundle.js"
   },
   "browserify": {
     "transform": [
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "beefy": "^2.1.1",
-    "browserify": "^7.0.0"
+    "browserify": "^7.0.0",
+    "uglify-js": "^2.4.16"
   }
 }
