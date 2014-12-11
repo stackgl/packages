@@ -5,7 +5,7 @@
   "scripts": {
     "start": "beefy index.js:bundle.js",
     "build": "DEBUG=* node build && npm run bundle",
-    "bundle": "browserify index.js | uglifyjs -cm > bundle.js"
+    "bundle": "browserify index.js -o bundle.js"
   },
   "browserify": {
     "transform": [
