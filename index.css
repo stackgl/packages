@@ -15,6 +15,50 @@
   max-width: 600px;
 }
 
+.stackgl-readme h1 .credits {
+  position: absolute;
+  top: 1px; right: 0;
+  height: 3rem;
+  text-align: right;
+  overflow: hidden;
+}
+
+.stackgl-readme h1 .credit-image {
+  width: 27px;
+  height: 27px;
+  background-size: 27px 27px;
+  background-size: cover;
+  display: inline-block;
+  border-radius: 24px;
+  margin-left: 8px;
+}
+
+.stackgl-readme .title-inner {
+  padding-right: 0.5rem;
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  transition: box-shadow 0.5s;
+  box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0);
+}
+
+.stackgl-readme .title-inner:after {
+  content: ' ';
+  width: 196px;
+  pointer-events: none;
+  height: 100%;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* IE10+ */
+  background: linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C */
+}
+
 .package-list h1,
 .package-list h2 {
   font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;

@@ -1,4 +1,5 @@
-var debug      = require('debug')('stackgl:packages')
+var debug      = require('debug')('stackgl:packages:log')
+var warn       = require('debug')('stackgl:packages:warn')
 var pygmentize = require('pygmentize-bundled')
 var cheerio    = require('cheerio')
 var map        = require('map-limit')
@@ -11,6 +12,8 @@ var fs         = require('fs')
 
 var src = 'https://raw.githubusercontent.com/wiki/stackgl/packages/Packages.md'
 var builddir = path.join(__dirname, 'build')
+var avatars = {}
+var authors = []
 var token
 
 ghauth({
@@ -40,8 +43,15 @@ ghauth({
         , JSON.stringify(categorize(repos))
       )
 
+      fs.writeFileSync(
+          path.join(builddir, 'contributors.json')
+        , JSON.stringify(authors.map(function(name) {
+          return { name: name, img: avatars[name] }
+        }))
+      )
+
       var readme = fs.readFileSync(
-        path.join(__dirname, '/README.md')
+        path.join(__dirname, 'README.md')
       , 'utf8')
 
       formatReadme(readme, false, function(err, html) {
@@ -107,7 +117,44 @@ function checkRepo(target, next) {
       ? res.request.href
       : null
 
-    next(null, target)
+    var uri = [
+        'https://api.github.com/repos'
+      , target.user
+      , target.name
+      , 'stats/contributors'
+    ].join('/')
+
+    request.get(uri, {
+        json: true
+      , headers: {
+          'User-Agent': 'stack.gl packages aggregator'
+        , 'Authorization': 'token ' + token
+      }
+    }, function(err, res, contributors) {
+      if (err) return next(err)
+
+      if (!Array.isArray(contributors)) {
+        target.contrib = []
+        warn('MISSING CONTRIBUTOR STATS: %s', repo)
+        return next(null, target)
+      }
+
+      target.contrib = contributors.sort(function(a, b) {
+        return b.total - a.total
+      }).map(function(a) {
+        // store avatar URLs for later
+        avatars[a.author.login] = a.author.avatar_url
+
+        // indexed author list for smaller payload
+        var user = a.author.login
+        var idx  = authors.indexOf(user)
+        if (idx !== -1) return idx
+        authors.push(user)
+        return authors.length - 1
+      })
+
+      next(null, target)
+    })
   })
 }
 
