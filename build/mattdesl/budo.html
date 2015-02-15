@@ -1,0 +1,23 @@
+<h1 id="bud-">bud&#x14D;</h1>
+<p><a href="http://github.com/badges/stability-badges"></a></p>
+<p>This is a browserify development server inspired by <a href="https://github.com/chrisdickinson/beefy">beefy</a> and <a href="https://github.com/maxogden/wzrd">wzrd</a>, but with a stronger focus on incremental bundling, LiveReload (including CSS injection), and &quot;script injection&quot; (Chrome only).</p>
+<p>Note that budo needs a copy of <code>watchify</code> installed. It can be either local (preferred) or global.</p>
+<pre><code class="lang-sh">npm install budo watchify -g
+</code></pre>
+<p>Simple uses: </p>
+<pre><code class="lang-sh"><span class="c">#run watchify on port 8000</span>
+budo index.js -o bundle.js --port 8000
+
+<span class="c">#run watchify and trigger LiveReload events on update</span>
+budo index.js -o bundle.js --live
+</code></pre>
+<p>To pretty-print in terminal, <a href="https://github.com/mattdesl/garnish">garnish</a>, <a href="https://github.com/hughsk/bistre">bistre</a> or another <a href="ndjson.org">ndjson</a>-based stream can be used.</p>
+<pre><code class="lang-sh">budo index.js -o bundle.js <span class="p">|</span> garnish --level debug
+</code></pre>
+<p>More docs to come soon, including the &quot;script injection&quot; in Chrome and other experimental features.</p>
+<p>This is still highly experimental, and so far only tested on OSX. PRs/suggestions/comments welcome. Props to <a href="https://twitter.com/caspervonb">@caspervonb</a> for the early groundwork.</p>
+<h2 id="usage">Usage</h2>
+<p><a href="https://www.npmjs.com/package/budo"></a></p>
+<p>Coming soon.</p>
+<h2 id="license">License</h2>
+<p>MIT, see <a href="http://github.com/mattdesl/budo/blob/master/LICENSE.md">LICENSE.md</a> for details.</p>
