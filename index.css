@@ -15,6 +15,10 @@
   max-width: 600px;
 }
 
+.stackgl-readme h1 a {
+  background: transparent;
+}
+
 .stackgl-readme h1 .credits {
   position: absolute;
   top: 1px; right: 0;

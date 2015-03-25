@@ -54,7 +54,7 @@ ghauth({
         path.join(__dirname, 'README.md')
       , 'utf8')
 
-      formatReadme(readme, false, function(err, html) {
+      formatReadme(readme, false, false, function(err, html) {
         if (err) throw err
 
         fs.writeFileSync(
@@ -186,7 +186,7 @@ function getReadme(target, next) {
 
     body = new Buffer(body.content, 'base64').toString()
 
-    formatReadme(body, target.uri, function(err, content) {
+    formatReadme(body, target.uri, target, function(err, content) {
       if (err) return next(err)
 
       mkdirp(path.dirname(dst), function(err) {
@@ -198,7 +198,7 @@ function getReadme(target, next) {
   })
 }
 
-function formatReadme(body, uri, done) {
+function formatReadme(body, uri, target, done) {
   marked(body, {
     highlight: function(code, lang, done) {
       if (!lang) return done(null, code)
@@ -228,8 +228,14 @@ function formatReadme(body, uri, done) {
     $('img[src^="https://nodei.co"]').remove()
     $('h1 img').remove()
 
+    var headings = $('h1, h2, h3, h4, h5, h6')
+
+    if (target && headings && headings[0]) {
+      var $h = $(headings[0])
+      $h.html('<a target="_blank" href="http://github.com/'+target.user+'/'+target.name+'">'+$h.html()+'</a>')
+    }
+
     if (!replaced && uri) {
-      var headings = $('h1, h2, h3, h4, h5, h6')
       var iframe = $('<iframe scrolling="no" seamless="seamless" src="'+uri+'"></iframe>')
       var img = $('img')
       var headingCount = 0
