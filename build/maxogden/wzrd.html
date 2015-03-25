@@ -8,7 +8,7 @@
 </code></pre><h2 id="usage">usage</h2>
 <pre><code>wzrd app.js
 </code></pre><p>This will start a local development server (default of <code>localhost:9966</code>) that serves all files in the current folder with the exception of <code>app.js</code>, which will be browserified instead. <code>wzrd</code> will spawn the command <code>browserify app.js</code> and send the output bundle back to the client.</p>
-<p>If no <code>index.html</code> is present in the directory you run <code>wzrd</code> in, one will be generated for you that has a <code>&lt;script src=&apos;app.js</code>&gt;` in it.</p>
+<p>If no <code>index.html</code> is present in the directory you run <code>wzrd</code> in, one will be generated for you that has a <code>&lt;script src=&apos;app.js&apos;&gt;&lt;/script&gt;</code> in it.</p>
 <h3 id="mappings">mappings</h3>
 <p>You can also specify a mapping:</p>
 <pre><code>wzrd app.js:bundle.js

@@ -25,7 +25,7 @@ ghauth({
   request.get(src, function(err, res, data) {
     if (err) throw err
 
-    map(getRepos(data), 2, function(repo, next) {
+    map(getRepos(data), 4, function(repo, next) {
       checkRepo(repo, function(err) {
         if (err) return next(err)
         getReadme(repo, function(err) {
@@ -204,7 +204,7 @@ function formatReadme(body, uri, done) {
       if (!lang) return done(null, code)
       pygmentize({ lang: lang, format: 'html' }, code, function(err, result) {
         result = String(result)
-        result = cheerio.load(result)('.highlight > pre').html()
+        result = cheerio.load(result)('.highlight > pre').html() || ''
         result = result.trim()
         done(err, result)
       })

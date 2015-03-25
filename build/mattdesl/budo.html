@@ -1,23 +1,53 @@
 <h1 id="bud-">bud&#x14D;</h1>
 <p><a href="http://github.com/badges/stability-badges"></a></p>
-<p>This is a browserify development server inspired by <a href="https://github.com/chrisdickinson/beefy">beefy</a> and <a href="https://github.com/maxogden/wzrd">wzrd</a>, but with a stronger focus on incremental bundling, LiveReload (including CSS injection), and &quot;script injection&quot; (Chrome only).</p>
+<p>This is a browserify development server inspired by <a href="https://github.com/chrisdickinson/beefy">beefy</a> and <a href="https://github.com/maxogden/wzrd">wzrd</a>, but with a stronger focus on incremental bundling, LiveReload (including CSS injection), and other <a href="#script-injection">experimental features</a> down the road.</p>
 <p>Note that budo needs a copy of <code>watchify</code> installed. It can be either local (preferred) or global.</p>
 <pre><code class="lang-sh">npm install budo watchify -g
 </code></pre>
-<p>Simple uses: </p>
-<pre><code class="lang-sh"><span class="c">#run watchify on port 8000</span>
-budo index.js -o bundle.js --port 8000
+<p>The simplest use cases will start up a server with a default <code>index.html</code> and incrementally bundle your source on filesave. Examples:</p>
+<pre><code class="lang-sh"><span class="c">#run watchify on port 9966</span>
+budo index.js
 
-<span class="c">#run watchify and trigger LiveReload events on update</span>
-budo index.js -o bundle.js --live
+<span class="c">#run watchify with explicit output file </span>
+budo index.js --outfile bundle.js --verbose
+
+<span class="c">#run watchify with some options and trigger LiveReload on change</span>
+budo index.js --live --transform brfs
 </code></pre>
+<p>You can open <code>localhost:9966</code> to see the content in action.</p>
 <p>To pretty-print in terminal, <a href="https://github.com/mattdesl/garnish">garnish</a>, <a href="https://github.com/hughsk/bistre">bistre</a> or another <a href="ndjson.org">ndjson</a>-based stream can be used.</p>
-<pre><code class="lang-sh">budo index.js -o bundle.js <span class="p">|</span> garnish --level debug
+<pre><code class="lang-sh">budo index.js -o bundle.js <span class="p">|</span> garnish
 </code></pre>
-<p>More docs to come soon, including the &quot;script injection&quot; in Chrome and other experimental features.</p>
-<p>This is still highly experimental, and so far only tested on OSX. PRs/suggestions/comments welcome. Props to <a href="https://twitter.com/caspervonb">@caspervonb</a> for the early groundwork.</p>
-<h2 id="usage">Usage</h2>
+<p>See <a href="#docs">docs</a> for more features.</p>
+<p>PRs/suggestions/comments welcome. Props to <a href="https://twitter.com/caspervonb">@caspervonb</a> for the early groundwork.</p>
+<h2 id="docs">docs</h2>
+<ul>
+<li><a href="docs/basics.md">basic usage</a></li>
+<li><a href="docs/comparisons.md">comparisons</a></li>
+<li><a href="docs/errors.md">error reporting</a></li>
+<li><a href="docs/tests-and-examples.md">running tests and examples</a></li>
+<li><a href="https://github.com/mattdesl/budo-chrome">script injection with budo-chrome</a></li>
+<li><a href="http://mattdesl.svbtle.com/rapid-prototyping">rapid prototyping with bud&#x14D; and wzrd</a></li>
+</ul>
+<h2 id="usage">usage</h2>
 <p><a href="https://www.npmjs.com/package/budo"></a></p>
-<p>Coming soon.</p>
+<p>Details for <code>budo</code> command-line interface. Other options like <code>--verbose</code> and <code>--transform</code> are sent to browserify/watchify. </p>
+<pre><code class="lang-sh">Usage:
+    budo <span class="o">[</span>entries<span class="o">]</span> <span class="o">[</span>opts<span class="o">]</span>
+
+Options:
+    --outfile, -o   path to output bundle
+    --port          the port to run, default 9966
+    --host          the host, default <span class="s2">&quot;localhost&quot;</span>
+    --dir           the directory to serve, and the base <span class="k">for</span> --outfile
+    --live          <span class="nb">enable </span>LiveReload integration
+    --live-plugin   <span class="nb">enable </span>LiveReload but <span class="k">do</span> not inject script tag
+    --live-port     the LiveReload port, default 35729
+</code></pre>
+<p>By default, the <code>--debug</code> option will be sent to watchify (for source maps). If this is unwanted, you can use <code>--no-debug</code> or <code>--debug=false</code> to disable source maps.</p>
+<h2 id="script-injection">Script Injection</h2>
+<p><a href="https://www.youtube.com/watch?v=cfgeN3G_Gl0"><img src="http://i.imgur.com/LJP7d9I.png" alt="screenshot"></a></p>
+<p><sup><a href="https://www.youtube.com/watch?v=cfgeN3G_Gl0">(click for demo)</a></sup></p>
+<p>The original motivation for making bud&#x14D; was to build a simple tool around Chrome Script Injection. This has since split off into its own repository: <a href="https://github.com/mattdesl/budo-chrome">budo-chrome</a> to minimize the scope of bud&#x14D;. </p>
 <h2 id="license">License</h2>
 <p>MIT, see <a href="http://github.com/mattdesl/budo/blob/master/LICENSE.md">LICENSE.md</a> for details.</p>
