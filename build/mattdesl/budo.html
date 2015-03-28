@@ -27,10 +27,12 @@ budo index.js --live --transform brfs
 <li><a href="docs/errors.md">error reporting</a></li>
 <li><a href="docs/tests-and-examples.md">running tests and examples</a></li>
 <li><a href="https://github.com/mattdesl/budo-chrome">script injection with budo-chrome</a></li>
+<li><a href="docs/programmatic-usage.md">programmatic usage (Gulp, Grunt)</a></li>
 <li><a href="http://mattdesl.svbtle.com/rapid-prototyping">rapid prototyping with bud&#x14D; and wzrd</a></li>
 </ul>
 <h2 id="usage">usage</h2>
 <p><a href="https://www.npmjs.com/package/budo"></a></p>
+<h3 id="cli">CLI</h3>
 <p>Details for <code>budo</code> command-line interface. Other options like <code>--verbose</code> and <code>--transform</code> are sent to browserify/watchify. </p>
 <pre><code class="lang-sh">Usage:
     budo <span class="o">[</span>entries<span class="o">]</span> <span class="o">[</span>opts<span class="o">]</span>
@@ -45,6 +47,20 @@ Options:
     --live-port     the LiveReload port, default 35729
 </code></pre>
 <p>By default, the <code>--debug</code> option will be sent to watchify (for source maps). If this is unwanted, you can use <code>--no-debug</code> or <code>--debug=false</code> to disable source maps.</p>
+<p><em>Note:</em> The <code>--outfile</code> is relative to the specified <code>--dir</code>. </p>
+<h3 id="api">API</h3>
+<p>The API mirrors the CLI except you must provide a <code>stream</code> for logging, and it does not attempt to auto-portfind. </p>
+<pre><code class="lang-js"><span class="kd">var</span> <span class="nx">budo</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&apos;budo&apos;</span><span class="p">)</span>
+
+<span class="nx">budo</span><span class="p">(</span><span class="s1">&apos;./src/index.js&apos;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">live</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>             <span class="c1">//live reload</span>
+  <span class="nx">stream</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">,</span> <span class="c1">//log to stdout</span>
+  <span class="nx">port</span><span class="o">:</span> <span class="mi">8000</span>              <span class="c1">//use this port</span>
+<span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&apos;connnect&apos;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ev</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">//...</span>
+<span class="p">})</span>
+</code></pre>
+<p>See <a href="docs/programmatic-usage.md">API usage</a> for more details.</p>
 <h2 id="script-injection">Script Injection</h2>
 <p><a href="https://www.youtube.com/watch?v=cfgeN3G_Gl0"><img src="http://i.imgur.com/LJP7d9I.png" alt="screenshot"></a></p>
 <p><sup><a href="https://www.youtube.com/watch?v=cfgeN3G_Gl0">(click for demo)</a></sup></p>
