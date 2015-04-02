@@ -5,7 +5,8 @@
 <span class="kd">var</span> <span class="nx">gl</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&apos;webgl-context&apos;</span><span class="p">)()</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nx">gl</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">//.. do something</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">gl</span><span class="p">.</span><span class="nx">canvas</span><span class="p">)</span>
+    <span class="c1">//do something...</span>
 <span class="p">}</span>
 </code></pre>
 <p>Or, with options:</p>

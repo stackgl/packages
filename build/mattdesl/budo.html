@@ -1,5 +1,5 @@
 <h1 id="bud-"><a target="_blank" href="http://github.com/mattdesl/budo">bud&#x14D;</a></h1>
-<p><a href="http://github.com/badges/stability-badges"></a></p>
+<p><a href="https://gitter.im/mattdesl/budo"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Gitter"></a></p>
 <p>This is a browserify development server inspired by <a href="https://github.com/chrisdickinson/beefy">beefy</a> and <a href="https://github.com/maxogden/wzrd">wzrd</a>, but with a stronger focus on incremental bundling, LiveReload (including CSS injection), and other <a href="#script-injection">experimental features</a> down the road.</p>
 <p>Note that budo needs a copy of <code>watchify</code> installed. It can be either local (preferred) or global.</p>
 <pre><code class="lang-sh">npm install budo watchify -g
@@ -24,10 +24,10 @@ budo index.js --live --transform brfs
 <ul>
 <li><a href="docs/basics.md">basic usage</a></li>
 <li><a href="docs/comparisons.md">comparisons</a></li>
+<li><a href="docs/programmatic-usage.md">programmatic usage (Gulp, Grunt)</a></li>
 <li><a href="docs/errors.md">error reporting</a></li>
 <li><a href="docs/tests-and-examples.md">running tests and examples</a></li>
 <li><a href="https://github.com/mattdesl/budo-chrome">script injection with budo-chrome</a></li>
-<li><a href="docs/programmatic-usage.md">programmatic usage (Gulp, Grunt)</a></li>
 <li><a href="http://mattdesl.svbtle.com/rapid-prototyping">rapid prototyping with bud&#x14D; and wzrd</a></li>
 </ul>
 <h2 id="usage">usage</h2>
@@ -38,12 +38,13 @@ budo index.js --live --transform brfs
     budo <span class="o">[</span>entries<span class="o">]</span> <span class="o">[</span>opts<span class="o">]</span>
 
 Options:
+    --help, -h      show <span class="nb">help </span>message
     --outfile, -o   path to output bundle
     --port          the port to run, default 9966
     --host          the host, default <span class="s2">&quot;localhost&quot;</span>
     --dir           the directory to serve, and the base <span class="k">for</span> --outfile
-    --live          <span class="nb">enable </span>LiveReload integration
-    --live-plugin   <span class="nb">enable </span>LiveReload but <span class="k">do</span> not inject script tag
+    --live          <span class="nb">enable </span>LiveReload integration with a script tag
+    --live-plugin   <span class="nb">enable </span>LiveReload <span class="k">for</span> use with a browser plugin
     --live-port     the LiveReload port, default 35729
 </code></pre>
 <p>By default, the <code>--debug</code> option will be sent to watchify (for source maps). If this is unwanted, you can use <code>--no-debug</code> or <code>--debug=false</code> to disable source maps.</p>

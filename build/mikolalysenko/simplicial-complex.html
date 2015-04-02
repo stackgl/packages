@@ -157,7 +157,7 @@
 <li><code>cells</code> is a cell complex</li>
 <li><code>vertex_count</code> is an optional parameter giving the number of vertices in the cell complex.  If not specified, then it calls <code>top.incidence(top.unique(top.skeleton(cells, 0)), cells)</code></li>
 </ul>
-<p><strong>Returns:</strong> An array of elements with the same length as <code>vertex_count</code> (if specified) or <code>unique(skeleton(cells,0))</code> otherwise giving the <a href="http://en.wikipedia.org/wiki/Star_(graph_theory\">vertex stars of the mesh</a>) as indexed arrays of cells.</p>
+<p><strong>Returns:</strong> An array of elements with the same length as <code>vertex_count</code> (if specified) or <code>unique(skeleton(cells,0))</code> otherwise giving the <a href="http://en.wikipedia.org/wiki/Star_\(graph_theory\">vertex stars of the mesh</a>) as indexed arrays of cells.</p>
 <p><strong>Time complexity:</strong> <code>O(dimension(cells) * cells.length)</code></p>
 <h3 id="-connectedcomponents-cells-vertex_count-"><code>connectedComponents(cells[, vertex_count])</code></h3>
 <p>Splits a simplicial complex into its <a href="http://en.wikipedia.org/wiki/Connected_component_(topology)">connected components</a>.  If <code>vertex_count</code> is specified, we assume that the cell complex is dense -- or in other words the vertices of the cell complex is the set of integers [0, vertex_count).  This allows for a slightly more efficient implementation.  If unspecified, a more general but less efficient sparse algorithm is used.</p>
