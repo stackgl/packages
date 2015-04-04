@@ -5,7 +5,7 @@
 
 <span class="p">...</span>
     <span class="c1">//75deg hue, 50% sat, 25% lightness</span>
-    <span class="k">vec3</span> <span class="n">rgb</span> <span class="o">=</span> <span class="n">hsl2rgb</span><span class="p">(</span><span class="mf">75.0</span><span class="o">/</span><span class="mf">360.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">);</span>
+    <span class="k">vec3</span> <span class="n">rgb</span> <span class="o">=</span> <span class="n">hsl2rgb</span><span class="p">(</span><span class="k">vec3</span><span class="p">(</span><span class="mf">75.0</span><span class="o">/</span><span class="mf">360.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">));</span>
     <span class="n">gl_FragColor</span> <span class="o">=</span> <span class="k">vec4</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
 </code></pre>
 <p>Implementation from <a href="https://github.com/flixel-gdx/flixel-gdx/blob/master/flixel-core/src/org/flixel/data/shaders/blend/luminosity.glsl">flixel-gdx</a>. PRs for optimizations welcome. </p>

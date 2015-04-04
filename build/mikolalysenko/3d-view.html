@@ -102,10 +102,11 @@
   <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">now</span><span class="p">()</span>
   <span class="nx">camera</span><span class="p">.</span><span class="nx">idle</span><span class="p">(</span><span class="nx">t</span> <span class="o">-</span> <span class="mi">20</span><span class="p">)</span>
   <span class="nx">camera</span><span class="p">.</span><span class="nx">flush</span><span class="p">(</span><span class="nx">t</span> <span class="o">-</span> <span class="mi">100</span><span class="p">)</span>
+  <span class="nx">camera</span><span class="p">.</span><span class="nx">recalcMatrix</span><span class="p">(</span><span class="nx">t</span><span class="o">-</span><span class="mi">25</span><span class="p">)</span>
 
   <span class="c1">//Compute parameters</span>
   <span class="kd">var</span> <span class="nx">cameraParams</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">view</span><span class="o">:</span> <span class="nx">camera</span><span class="p">.</span><span class="nx">getMatrix</span><span class="p">(</span><span class="nx">t</span> <span class="o">-</span> <span class="mi">25</span><span class="p">),</span>
+    <span class="nx">view</span><span class="o">:</span> <span class="nx">camera</span><span class="p">.</span><span class="nx">computedMatrix</span><span class="p">,</span>
     <span class="nx">projection</span><span class="o">:</span> <span class="nx">perspective</span><span class="p">(</span>
       <span class="p">[],</span>
       <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="mf">4.0</span><span class="p">,</span>
@@ -124,13 +125,6 @@
 <h2 id="constructor">Constructor</h2>
 <h4 id="-var-camera-require-3d-view-options-"><code>var camera = require(&apos;3d-view&apos;)([options])</code></h4>
 <h2 id="methods">Methods</h2>
-<h4 id="-camera-getmatrix-t-out-"><code>camera.getMatrix(t[, out])</code></h4>
-<p>Computes the state of the camera matrix at time <code>t</code></p>
-<ul>
-<li><code>t</code> is the time </li>
-<li><code>out</code> is an optional length 16 array that gets the current matrix</li>
-</ul>
-<p><strong>Returns</strong> the current view matrix</p>
 <h4 id="-camera-idle-t-"><code>camera.idle(t)</code></h4>
 <p>Idles the camera at time <code>t</code></p>
 <ul>
@@ -184,24 +178,6 @@
 <li><code>t</code> is the time of the event</li>
 <li><code>matrix</code> is the new camera matrix</li>
 </ul>
-<h4 id="-camera-getup-t-out-"><code>camera.getUp(t[, out])</code></h4>
-<p>Gets the up vector of the camera</p>
-<ul>
-<li><code>t</code> is the time of the event</li>
-<li><code>out</code> is a storage vector (optional) recieving the up vector</li>
-</ul>
-<p><strong>Returns</strong> the up vector</p>
-<h4 id="-camera-geteye-t-out-"><code>camera.getEye(t[, out])</code></h4>
-<p>Returns the position of the camera in world coordinates</p>
-<ul>
-<li><code>t</code> is the time to sample</li>
-<li><code>out</code> is storage for the result</li>
-</ul>
-<p><strong>Returns</strong> the position of the camera</p>
-<h4 id="-camera-getcenter-t-out-"><code>camera.getCenter(t[, out])</code></h4>
-<p>Returns the target of the camera (only affects turntable and orbit mode)</p>
-<h4 id="-camera-getdistance-t-"><code>camera.getDistance(t)</code></h4>
-<p>Returns distance to target at time <code>t</code> (only affects turntable and orbit mode)</p>
 <h4 id="-camera-setdistance-t-r-"><code>camera.setDistance(t, r)</code></h4>
 <p>Sets camera distance at time <code>t</code></p>
 <ul>
@@ -211,6 +187,18 @@
 <h4 id="-camera-setdistancelimits-lo-hi-"><code>camera.setDistanceLimits(lo, hi)</code></h4>
 <p>Sets bounds on the camera distance</p>
 <h4 id="-camera-getdistancelimits-out-"><code>camera.getDistanceLimits([out])</code></h4>
-<p>Retrieves the camera limitsx</p>
+<p>Retrieves the camera limits</p>
+<h4 id="-camera-recalcmatrix-t-"><code>camera.recalcMatrix(t)</code></h4>
+<p>Recomputes all matrix properties at time <code>t</code></p>
+<h4 id="-camera-computedmatrix-"><code>camera.computedMatrix</code></h4>
+<p>The computed 4x4 matrix of the camera</p>
+<h4 id="-camera-computedeye-"><code>camera.computedEye</code></h4>
+<p>The computed 3d eye vector for the camera</p>
+<h4 id="-camera-computedup-"><code>camera.computedUp</code></h4>
+<p>Computed up vector (initialized when calling recalcMatrix)</p>
+<h4 id="-camera-computedcenter-"><code>camera.computedCenter</code></h4>
+<p>Computed camera center point</p>
+<h4 id="-camera-computedradius-"><code>camera.computedRadius</code></h4>
+<p>Computed log(radius)</p>
 <h1 id="license">License</h1>
 <p>(c) 2015 Mikola Lysenko. MIT License</p>
