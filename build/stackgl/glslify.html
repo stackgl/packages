@@ -88,6 +88,12 @@ file:</p>
   <span class="p">}</span>
 <span class="err">`</span><span class="p">,</span> <span class="p">{</span> <span class="nx">inline</span><span class="o">:</span> <span class="kc">true</span> <span class="p">})</span>
 </code></pre>
+<h3 id="-webpack-http-webpack-github-io-loader"><a href="http://webpack.github.io/">Webpack</a> Loader</h3>
+<p>You can use the
+<a href="https://github.com/stackgl/glslify-loader">glslify-loader</a>
+module to bundle shaders through glslify with Webpack. Check out
+<a href="https://github.com/stackgl/glslify-loader">the repository</a>
+for further information.</p>
 <h2 id="usage">Usage</h2>
 <h3 id="installing-a-glsl-module">Installing a GLSL Module</h3>
 <p>Much like plain JavaScript modules, GLSL modules are stored on npm.
@@ -327,8 +333,10 @@ glslify&apos;s browserify transform.</li>
 performed asynchronously, but otherwise it shares the same API as
 glslify&apos;s browserify transform.</p>
 <h3 id="-glslify-bundle-file-opts-done-"><code>glslify.bundle(file, opts, done)</code></h3>
-<p>Takes a <code>file</code> and calls <code>done(err, source)</code> with the finished shader
-when complete. Options include:</p>
+<p>Takes a <code>file</code> and calls <code>done(err, source, files)</code> with the finished shader
+when complete. <code>files</code> is an array of all the files required from the
+dependency tree, including the entry file.</p>
+<p>Options include:</p>
 <ul>
 <li><code>inline</code>: if set to true, you can pass the GLSL source directly in
 place of the <code>file</code> argument.</li>

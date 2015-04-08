@@ -1,5 +1,7 @@
-<h1 id="bud-"><a target="_blank" href="http://github.com/mattdesl/budo">bud&#x14D;</a></h1>
-<p><a href="https://gitter.im/mattdesl/budo"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Gitter"></a></p>
+<h3 id="version-3-0-roadmap"><a target="_blank" href="http://github.com/mattdesl/budo">version 3.0 roadmap</a></h3>
+<p><a href="https://github.com/mattdesl/budo/issues/20#issuecomment-89889926">See here</a> the budo@3.0 plans. The next version will be snappier and will never serve you stale or empty bundles (i.e. reloading page mid-compilation), but comes with some breaking changes.</p>
+<h1 id="bud-">bud&#x14D;</h1>
+<p><a href="http://github.com/badges/stability-badges"></a></p>
 <p>This is a browserify development server inspired by <a href="https://github.com/chrisdickinson/beefy">beefy</a> and <a href="https://github.com/maxogden/wzrd">wzrd</a>, but with a stronger focus on incremental bundling, LiveReload (including CSS injection), and other <a href="#script-injection">experimental features</a> down the road.</p>
 <p>Note that budo needs a copy of <code>watchify</code> installed. It can be either local (preferred) or global.</p>
 <pre><code class="lang-sh">npm install budo watchify -g
@@ -8,14 +10,11 @@
 <pre><code class="lang-sh"><span class="c">#run watchify on port 9966</span>
 budo index.js
 
-<span class="c">#run watchify with explicit output file </span>
-budo index.js --outfile bundle.js --verbose
-
 <span class="c">#run watchify with some options and trigger LiveReload on change</span>
 budo index.js --live --transform brfs
 </code></pre>
 <p>You can open <code>localhost:9966</code> to see the content in action.</p>
-<p>To pretty-print in terminal, <a href="https://github.com/mattdesl/garnish">garnish</a>, <a href="https://github.com/hughsk/bistre">bistre</a> or another <a href="ndjson.org">ndjson</a>-based stream can be used.</p>
+<p>To pretty-print in terminal, <a href="https://github.com/mattdesl/garnish">garnish</a>, <a href="https://github.com/hughsk/bistre">bistre</a> or another <a href="http://ndjson.org">ndjson</a>-based stream can be used.</p>
 <pre><code class="lang-sh">budo index.js -o bundle.js <span class="p">|</span> garnish
 </code></pre>
 <p>See <a href="#docs">docs</a> for more features.</p>
