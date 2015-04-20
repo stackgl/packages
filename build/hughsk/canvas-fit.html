@@ -31,5 +31,13 @@ manually trigger a resize after doing this.</p>
 <h3 id="-resize-parent-domelement-"><code>resize.parent = &lt;DOMElement&gt;</code></h3>
 <p>Dynamically change the canvas&apos; <code>parent</code> element. Note that you still need
 to manually trigger a resize after doing this.</p>
+<h3 id="-resize-parent-width-height-"><code>resize.parent = () =&gt; [width, height]</code></h3>
+<p>Instead of filling a given element, explicitly set the width and height
+of the canvas. Note that this value will still be scaled up according
+to <code>resize.scale</code></p>
+<pre><code class="lang-javascript"><span class="nx">resize</span><span class="p">.</span><span class="nx">parent</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">[</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span> <span class="o">-</span> <span class="mi">300</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerHeight</span> <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
 <h2 id="license">License</h2>
 <p>MIT. See <a href="http://github.com/hughsk/canvas-fit/blob/master/LICENSE.md">LICENSE.md</a> for details.</p>
