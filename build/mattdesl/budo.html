@@ -8,11 +8,12 @@
 <pre><code class="lang-sh"><span class="c"># serve file on port 9966</span>
 budo index.js
 
+<span class="c"># enable LiveReload on html/css/js changes</span>
 <span class="c"># show timing information on re-bundle</span>
-budo index.js --verbose
+budo index.js --verbose --live
 
-<span class="c"># transpile ES6 and trigger LiveReload on html/css/js change</span>
-budo index.js --live --transform babelify
+<span class="c"># pass some options to browserify</span>
+budo index.js --live -- -t babelify --full-paths
 </code></pre>
 <p>Then open <a href="http://localhost:9966">http://localhost:9966</a> to see the content in action.</p>
 <p>To pretty-print in terminal, <a href="https://github.com/mattdesl/garnish">garnish</a>, <a href="https://github.com/hughsk/bistre">bistre</a> or another <a href="http://ndjson.org">ndjson</a>-based stream can be used:</p>
@@ -32,7 +33,7 @@ budo index.js --live --transform babelify
 <h2 id="usage">usage</h2>
 <p><a href="https://www.npmjs.com/package/budo"></a></p>
 <h3 id="cli">CLI</h3>
-<p>Details for <code>budo</code> command-line interface. Other options like <code>--transform</code> are sent to browserify/watchify. </p>
+<p>Details for <code>budo</code> command-line interface. Other options will be sent to browserify.</p>
 <pre><code class="lang-sh">Usage:
   budo <span class="o">[</span>entries<span class="o">]</span> <span class="o">[</span>opts<span class="o">]</span>
 
@@ -51,6 +52,9 @@ Options:
   --no-debug       <span class="k">do</span> not use inline <span class="nb">source </span>maps
 </code></pre>
 <p>By default, messages will be printed to <code>stdout</code> and <code>debug</code> will be sent to browserify (for source maps). You can turn these off with <code>--no-stream</code> and <code>--no-debug</code>, respectively. </p>
+<p>Any options after <code>--</code> will be sent unchanged to browserify. This is currently required for subarg syntax. Example:</p>
+<pre><code class="lang-js"><span class="nx">budo</span> <span class="nx">index</span><span class="p">.</span><span class="nx">js</span> <span class="o">--</span><span class="nx">live</span> <span class="o">--</span> <span class="o">-</span><span class="nx">t</span> <span class="p">[</span> <span class="nx">babelify</span> <span class="o">--</span><span class="nx">exetensions</span> <span class="p">.</span><span class="nx">es6</span> <span class="p">]</span>
+</code></pre>
 <h3 id="api">API</h3>
 <p>The API mirrors the CLI except it does not write to <code>process.stdout</code> by default, and does not attempt to find available ports from a base port. </p>
 <pre><code class="lang-js"><span class="kd">var</span> <span class="nx">budo</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&apos;budo&apos;</span><span class="p">)</span>
