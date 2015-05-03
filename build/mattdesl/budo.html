@@ -1,10 +1,10 @@
 <h1 id="bud-"><a target="_blank" href="http://github.com/mattdesl/budo">bud&#x14D;</a></h1>
 <p><a href="http://github.com/badges/stability-badges"></a></p>
 <p>This is a browserify development server inspired by <a href="https://github.com/chrisdickinson/beefy">beefy</a> and <a href="https://github.com/maxogden/wzrd">wzrd</a>, but specifically focused on incremental reloading and LiveReload integration (including CSS injection).</p>
-<p>Note that budo needs a copy of <code>watchify</code> installed. It can be either local (preferred) or global.</p>
-<pre><code class="lang-sh">npm install budo watchify -g
+<p>To install:</p>
+<pre><code class="lang-sh">npm install budo -g
 </code></pre>
-<p>The simplest use cases will start up a server with a default <code>index.html</code> and incrementally bundle your source on filesave. The requests are delayed until the bundle has finished, so you won&apos;t be served stale or empty bundles if you refresh the page mid-update. Examples:</p>
+<p>Running budo will start a server with a default <code>index.html</code> and incrementally bundle your source on filesave. The requests are delayed until the bundle has finished, so you won&apos;t be served stale or empty bundles if you refresh the page mid-update. Examples:</p>
 <pre><code class="lang-sh"><span class="c"># serve file on port 9966</span>
 budo index.js
 
@@ -16,8 +16,12 @@ budo index.js --verbose --live
 budo index.js --live -- -t babelify --full-paths
 </code></pre>
 <p>Then open <a href="http://localhost:9966">http://localhost:9966</a> to see the content in action.</p>
-<p>To pretty-print in terminal, <a href="https://github.com/mattdesl/garnish">garnish</a>, <a href="https://github.com/hughsk/bistre">bistre</a> or another <a href="http://ndjson.org">ndjson</a>-based stream can be used:</p>
-<pre><code class="lang-sh">budo index.js <span class="p">|</span> garnish
+<p>To pretty-print in terminal, <a href="https://github.com/mattdesl/garnish">garnish</a>, <a href="https://github.com/hughsk/bistre">bistre</a> or another <a href="http://ndjson.org">ndjson</a>-based stream can be used. Example:</p>
+<pre><code class="lang-sh"><span class="c"># install garnish if you don&apos;t have it</span>
+npm install garnish -g
+
+<span class="c"># pipe to garnish for pretty-printing</span>
+budo index.js <span class="p">|</span> garnish
 </code></pre>
 <p>See <a href="#docs">docs</a> for more features. PRs/suggestions/comments welcome.</p>
 <h2 id="docs">docs</h2>
@@ -33,7 +37,7 @@ budo index.js --live -- -t babelify --full-paths
 <h2 id="usage">usage</h2>
 <p><a href="https://www.npmjs.com/package/budo"></a></p>
 <h3 id="cli">CLI</h3>
-<p>Details for <code>budo</code> command-line interface. Other options will be sent to browserify.</p>
+<p>Details for <code>budo</code> command-line interface. Other options (like <code>-t</code>) will be sent to browserify.</p>
 <pre><code class="lang-sh">Usage:
   budo <span class="o">[</span>entries<span class="o">]</span> <span class="o">[</span>opts<span class="o">]</span>
 
@@ -51,8 +55,8 @@ Options:
   --no-stream      <span class="k">do</span> not print messages to stdout
   --no-debug       <span class="k">do</span> not use inline <span class="nb">source </span>maps
 </code></pre>
-<p>By default, messages will be printed to <code>stdout</code> and <code>debug</code> will be sent to browserify (for source maps). You can turn these off with <code>--no-stream</code> and <code>--no-debug</code>, respectively. </p>
-<p>Any options after <code>--</code> will be sent unchanged to browserify. This is currently required for subarg syntax. Example:</p>
+<p>By default, messages will be printed to <code>process.stdout</code>, and <code>--debug</code> will be sent to browserify (for source maps). You can turn these off with <code>--no-stream</code> and <code>--no-debug</code>, respectively. </p>
+<p>Everything after <code>--</code> is passed directly to browserify; this is currently needed for subarg syntax. Example:</p>
 <pre><code class="lang-js"><span class="nx">budo</span> <span class="nx">index</span><span class="p">.</span><span class="nx">js</span> <span class="o">--</span><span class="nx">live</span> <span class="o">--</span> <span class="o">-</span><span class="nx">t</span> <span class="p">[</span> <span class="nx">babelify</span> <span class="o">--</span><span class="nx">exetensions</span> <span class="p">.</span><span class="nx">es6</span> <span class="p">]</span>
 </code></pre>
 <h3 id="api">API</h3>
