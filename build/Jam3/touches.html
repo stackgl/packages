@@ -9,7 +9,9 @@
   <span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&apos;end&apos;</span><span class="p">,</span> <span class="nx">mouseEnd</span><span class="p">)</span>      <span class="c1">//-&gt; mouseup   / touchend</span>
 
 <span class="kd">function</span> <span class="nx">mouseDown</span><span class="p">(</span><span class="nx">ev</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">ev</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+  <span class="c1">//recommended to avoid duplicate</span>
+  <span class="c1">//events when mobile devices support both mouse + touch</span>
+  <span class="nx">ev</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
 <span class="p">}</span>
 
 <span class="p">...</span>

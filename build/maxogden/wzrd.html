@@ -21,3 +21,6 @@
 <h3 id="passing-extra-args-to-browserify">passing extra args to browserify</h3>
 <pre><code>wzrd app.js -- -t brfs
 </code></pre><p>anything after <code>--</code> will get passed directly to <code>browserify</code> as arguments. so the example above would spawn the command <code>browserify app.js -t brfs</code></p>
+<h3 id="pushstate-server-support">pushstate server support</h3>
+<pre><code>wzrd app.js --pushstate
+</code></pre><p>if you want to leverage the html5 pushstate and support natural urls in your frontend application you can use the <code>--pushstate</code> flag. This flag will instruct the wzrd server to always return index.html for any file not found request from your server.</p>
