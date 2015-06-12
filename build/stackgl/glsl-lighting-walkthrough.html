@@ -252,7 +252,7 @@ npm run start
 <li><a href="https://www.npmjs.com/package/glsl-specular-cook-torrance">glsl-specular-cook-torrance</a></li>
 </ul>
 <p>Which one you choose depends on the material and aesthetic you are working with. In our case, <code>glsl-specular-phong</code> looks pretty good.</p>
-<p>Here we are using a specular map and <code>specularScale</code> multiplier to drive the strength. The above screen shot is scaled 100x for demonstration.</p>
+<p>The above screenshot is scaled by 100x for demonstration, using <code>specularScale</code> to drive the strength. The specular is also affected by the light attenuation.</p>
 <pre><code class="lang-glsl"><span class="cp">#pragma glslify: computeSpecular = require(&apos;glsl-specular-phong&apos;)</span>
 
   <span class="p">...</span>
@@ -260,6 +260,7 @@ npm run start
   <span class="k">float</span> <span class="n">specularStrength</span> <span class="o">=</span> <span class="n">textureLinear</span><span class="p">(</span><span class="n">texSpecular</span><span class="p">,</span> <span class="n">uv</span><span class="p">).</span><span class="n">r</span><span class="p">;</span>
   <span class="k">float</span> <span class="n">specular</span> <span class="o">=</span> <span class="n">specularStrength</span> <span class="o">*</span> <span class="n">computeSpecular</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">shininess</span><span class="p">);</span>
   <span class="n">specular</span> <span class="o">*=</span> <span class="n">specularScale</span><span class="p">;</span>
+  <span class="n">specular</span> <span class="o">*=</span> <span class="n">falloff</span><span class="p">;</span>
 </code></pre>
 <h3 id="final-color">final color</h3>
 <p><img src="http://i.imgur.com/ZN5FmKz.png" alt="final"></p>
