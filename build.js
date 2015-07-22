@@ -222,11 +222,24 @@ function formatReadme(body, uri, target, done) {
     var $ = cheerio.load(content)
 
     // Remove badges
-    $('img[src^="http://img.shields.io"]').remove()
-    $('img[src^="http://badges.github.io"]').remove()
-    $('img[src^="http://nodei.co"]').remove()
-    $('img[src^="https://nodei.co"]').remove()
+    $('img[src*="://img.shields.io"]').remove()
+    $('img[src*="://badges.github.io"]').remove()
+    $('img[src*="://nodei.co"]').remove()
+    $('img[src*="://david-dm.org"]').remove()
+    $('img[src*="://badge.fury.io"]').remove()
+    $('img[src*="://travis-ci.org"]').remove()
+    $('img[src*="://secure.travis-ci.org"]').remove()
     $('h1 img').remove()
+
+    $('a:not([href^=http]):not([href^=#])').each(function(i,el) {
+      var $a = $(el)
+      $a.attr( 'href', 'http://github.com/'+target.user+'/'+target.name+'/blob/master/'+$a.attr('href') )
+    })
+
+    $('img:not([src^=http])').each(function(i,el) {
+      var $img = $(el)
+      $img.attr( 'src', 'https://raw.githubusercontent.com/' + target.user + '/' + target.name + '/master/' + $img.attr('src') )
+    })
 
     var headings = $('h1, h2, h3, h4, h5, h6')
 
