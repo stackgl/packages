@@ -1,0 +1,57 @@
+{
+  "name": "ecosystem-docs-stackgl",
+  "version": "1.0.0",
+  "scripts": {
+    "postinstall": "mkdir -p dist && npm run sync && npm run make",
+    "prestart": "npm run make",
+    "start": "(watchify index.js -o dist/bundle.js & cssnext -Uw index.css dist/bundle.css & serve ./dist -SJ)",
+    "predeploy": "browserify index.js | uglifyjs -cm > dist/bundle.js && cssnext -cU index.css dist/bundle.css",
+    "deploy": "gh-pages -d dist",
+    "make": "node build-make",
+    "sync": "node build-sync"
+  },
+  "browserify": {
+    "transform": [
+      "reactify",
+      "babelify",
+      "brfs"
+    ]
+  },
+  "dependencies": {
+    "babelify": "^6.1.2",
+    "brfs": "^1.4.0",
+    "browserify": "^10.2.4",
+    "cheerio": "^0.19.0",
+    "cpr": "^0.4.1",
+    "css-modulesify": "^0.3.3",
+    "cssnext": "^1.8.1",
+    "domify": "^1.3.3",
+    "ecosystem-docs": "^1.1.0",
+    "fuzzaldrin": "^2.1.0",
+    "gh-pages": "^0.3.1",
+    "ghauth": "^3.0.0",
+    "highlights": "^1.2.0",
+    "insert-css": "^0.2.0",
+    "language-css": "atom/language-css",
+    "language-glsl": "^1.0.0",
+    "language-html": "atom/language-html",
+    "language-javascript": "atom/language-javascript",
+    "language-json": "atom/language-json",
+    "language-shellscript": "atom/language-shellscript",
+    "map-limit": "0.0.1",
+    "marked": "^0.3.3",
+    "mdast": "^0.22.0",
+    "mkdirp": "^0.5.1",
+    "node-jsx": "^0.13.3",
+    "postcss-import": "^6.1.1",
+    "pygmentize-bundled": "^2.3.0",
+    "react": "^0.13.3",
+    "reactify": "^1.1.1",
+    "request": "^2.58.0",
+    "serve": "^1.4.0",
+    "stackgl-readme-css": "^1.2.0",
+    "uglify-js": "^2.4.23",
+    "watchify": "^3.2.2",
+    "xhr": "^2.0.1"
+  }
+}

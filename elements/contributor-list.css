@@ -1,0 +1,35 @@
+.stackgl-readme .list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  text-align: right;
+  z-index: 2;
+}
+
+.stackgl-readme .contrib {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.stackgl-readme .list > li {
+  display: inline-block;
+}
+
+.stackgl-readme .list > li:before {
+  display: none;
+  content: '';
+}
+
+.stackgl-readme .list img {
+  display: inline-block;
+  border-radius: 25px;
+  width: 25px;
+  height: 25px;
+  margin-left: 5px;
+}

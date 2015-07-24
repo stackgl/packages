@@ -1,0 +1,5 @@
+node_modules
+.data
+dist
+npm-debug.log
+packages.md

@@ -1,0 +1,42 @@
+body .stackgl-readme,
+body .stackgl-readme pre,
+body .stackgl-readme code {
+  font-family: fantasque;
+}
+
+.panel {
+  margin-left: 332px;
+}
+
+.panelInner {
+  padding: 4rem;
+  max-width: 600px;
+}
+
+.panel .title {
+  margin-top: 0;
+}
+.panel .title > a {
+  background: #fff;
+  position: relative;
+  display: inline-block;
+  z-index: 3;
+}
+.panel .title > a:after {
+  content: '';
+  z-index: 4;
+  display: block;
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 100%;
+  width: 150px;
+  pointer-events: none;
+  background: linear-gradient(to right,
+    rgba(255,255,255,1) 7%,
+    rgba(255,255,255,0) 100%);
+}
+
+.panel .title .contrib a {
+  background: transparent;
+  box-shadow: none;
+}

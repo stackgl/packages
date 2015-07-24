@@ -1,0 +1,48 @@
+.repoListItem {
+  font-family: 'fantasque';
+  white-space: pre;
+  margin: 0;
+  font-size: 0.8rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  position: relative;
+  padding-bottom: 1px;
+}
+
+.itemSelected {
+  font-weight: bold;
+}
+
+.repoListItem .link {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
+}
+
+.repoListItem .name {
+  float: left;
+  color: #777;
+}
+
+
+.repoListItem .version {
+  float: right;
+  color: #ccc;
+}
+
+.repoListItem .version:before {
+  content: '@ ';
+  opacity: 0.5;
+}
+
+.repoListItem:hover {
+  border-bottom: 1px solid #f2f2f2;
+  padding-bottom: 0;
+}
+
+.repoListItem:hover .name,
+.repoListItem:hover .version {
+  color: #66C4FF;
+}
