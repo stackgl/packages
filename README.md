@@ -8,7 +8,7 @@ The built output can be found on the [gh-pages branch](https://github.com/stackg
 
 ## Adding a package
 
-Simply add your repository's GitHub repository to [the list in the wiki](https://github.com/stackgl/packages/wiki/Packages).
+Simply add your package's GitHub repository to [the list in the wiki](https://github.com/stackgl/packages/wiki/Packages).
 
 ## Build your own list
 
