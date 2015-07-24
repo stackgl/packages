@@ -1,0 +1,40 @@
+@font-face {
+  font-family: 'fantasque';
+  src: url('font/FantasqueSansMono-BoldItalic.eot'); /* IE 9 Compatibility Mode */
+  src: url('font/FantasqueSansMono-BoldItalic.eot?#iefix') format('embedded-opentype'), /* IE < 9 */
+       url('font/FantasqueSansMono-BoldItalic.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
+       url('font/FantasqueSansMono-BoldItalic.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('font/FantasqueSansMono-BoldItalic.svg#strippedname:/home/jany/Polices/Cosmic/Sources/FantasqueSansMono-BoldItalic.sfd') format('svg'); /* Chrome < 4, Legacy iOS */
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'fantasque';
+  src: url('font/FantasqueSansMono-Bold.eot'); /* IE 9 Compatibility Mode */
+  src: url('font/FantasqueSansMono-Bold.eot?#iefix') format('embedded-opentype'), /* IE < 9 */
+       url('font/FantasqueSansMono-Bold.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
+       url('font/FantasqueSansMono-Bold.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('font/FantasqueSansMono-Bold.svg#strippedname:/home/jany/Polices/Cosmic/Sources/FantasqueSansMono-Bold.sfd') format('svg'); /* Chrome < 4, Legacy iOS */
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'fantasque';
+  src: url('font/FantasqueSansMono-RegItalic.eot'); /* IE 9 Compatibility Mode */
+  src: url('font/FantasqueSansMono-RegItalic.eot?#iefix') format('embedded-opentype'), /* IE < 9 */
+       url('font/FantasqueSansMono-RegItalic.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
+       url('font/FantasqueSansMono-RegItalic.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('font/FantasqueSansMono-RegItalic.svg#strippedname:/home/jany/Polices/Cosmic/Sources/FantasqueSansMono-RegItalic.sfd') format('svg'); /* Chrome < 4, Legacy iOS */
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'fantasque';
+  src: url('font/FantasqueSansMono-Regular.eot'); /* IE 9 Compatibility Mode */
+  src: url('font/FantasqueSansMono-Regular.eot?#iefix') format('embedded-opentype'), /* IE < 9 */
+       url('font/FantasqueSansMono-Regular.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
+       url('font/FantasqueSansMono-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('font/FantasqueSansMono-Regular.svg#strippedname:/home/jany/Polices/Cosmic/Sources/FantasqueSansMono-Regular.sfd') format('svg'); /* Chrome < 4, Legacy iOS */
+  font-weight: normal;
+  font-style: normal;
+}
