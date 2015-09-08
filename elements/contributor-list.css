@@ -1,4 +1,4 @@
-.stackgl-readme .list {
+.stackgl-readme .contrib .list {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -17,16 +17,16 @@
     overflow: hidden;
 }
 
-.stackgl-readme .list > li {
+.stackgl-readme .contrib .list > li {
   display: inline-block;
 }
 
-.stackgl-readme .list > li:before {
+.stackgl-readme .contrib .list > li:before {
   display: none;
   content: '';
 }
 
-.stackgl-readme .list img {
+.stackgl-readme .contrib .list img {
   display: inline-block;
   border-radius: 25px;
   width: 25px;
