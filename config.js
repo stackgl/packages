@@ -2,6 +2,7 @@ const React = require('react')
 
 // URL to download the wiki packages list from
 exports.wiki = 'https://raw.githubusercontent.com/wiki/stackgl/packages/Packages.md'
+exports.home = 'http://stack.gl/'
 
 // JSX for logo, to be placed at the top of the sidebar
 exports.logo = function () {

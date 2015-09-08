@@ -41,11 +41,11 @@ module.exports = class RepoList extends React.Component {
 
     return (
       <nav className='repoList'>
-        <a className='logo' href="http://stack.gl" target="_blank">
+        <a className='logo' href={config.home} target='_blank'>
           {config.logo()}
         </a>
         <input
-          type="search"
+          type='search'
           placeholder={`Search ${this.props.total} Packages...`}
           value={this.state.search}
           className='repoListInput'
