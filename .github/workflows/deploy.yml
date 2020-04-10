@@ -35,7 +35,7 @@ jobs:
         run: npm install
         env:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEBUG: *
+          DEBUG: "*"
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
