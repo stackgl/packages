@@ -7,7 +7,6 @@
     "prestart": "npm run make",
     "start": "(watchify index.js -o dist/bundle.js & cssnext -Uw index.css dist/bundle.css & serve ./dist -SJ)",
     "predeploy": "browserify index.js | uglifyjs -cm > dist/bundle.js && cssnext -cU index.css dist/bundle.css",
-    "deploy": "gh-pages -d dist",
     "make": "node build-make",
     "sync": "node build-sync"
   },
@@ -33,8 +32,6 @@
     "domify": "^1.3.3",
     "ecosystem-docs": "^1.1.0",
     "fuzzaldrin": "^2.1.0",
-    "gh-pages": "^0.3.1",
-    "ghauth": "^3.0.0",
     "highlights": "^1.3.0",
     "insert-css": "^0.2.0",
     "language-css": "atom/language-css",
