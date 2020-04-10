@@ -12,7 +12,10 @@ request.get(config.wiki, function(err, res, body) {
   fs.writeFileSync(path.join(__dirname, 'packages.md'), body)
 
   sync(body, function(err, repos) {
-    if (err) throw err
+    if (err) {
+      console.error('*********sync failed*********');
+      throw err;
+    }
     console.log(repos.length + ' repos updated')
   })
 })

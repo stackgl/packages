@@ -16,18 +16,26 @@ const dataLocation = path.join(__dirname, '.data')
 exports.sync = function(packageMarkdown, done) {
   const repos = categoriesToRepos(parseCategories(packageMarkdown))
 
-  ghauth({
-    configName: 'ecosystem-docs',
-    userAgent: 'ecosystem-docs',
-    scopes: ['user']
-  }, function(err, auth) {
-    if (err) return done(err)
-
+  function syncWithToken(token){
     sync(repos, {
       data: dataLocation,
-      token: auth.token
-    }, done)
-  })
+      token, token
+    }, done);
+  }
+
+  if(process.env.ACCESS_TOKEN){
+    syncWithToken(process.env.ACCESS_TOKEN);
+  }else{
+    console.log("No access token passed need to authenticate...");
+    ghauth({
+      configName: 'ecosystem-docs',
+      userAgent: 'ecosystem-docs',
+      scopes: ['user']
+    }, function(err, auth) {
+      if (err) return done(err)
+      syncWithToken(auth.token)
+    })
+  }
 }
 
 exports.make = function(packageMarkdown, options, done) {

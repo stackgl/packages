@@ -25,6 +25,8 @@ jobs:
       # Runs a single command using the runners shell
       - name: Install and build
         run: npm install
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
