@@ -48,7 +48,7 @@
     "node-jsx": "^0.13.3",
     "postcss-import": "^6.1.1",
     "pygmentize-bundled": "^2.3.0",
-    "react": "^0.13.3",
+    "react": "^0.14.0",
     "reactify": "^1.1.1",
     "request": "^2.58.0",
     "serve": "^1.4.0",
