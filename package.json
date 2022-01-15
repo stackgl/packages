@@ -42,7 +42,7 @@
     "language-json": "atom/language-json",
     "language-shellscript": "atom/language-shellscript",
     "map-limit": "0.0.1",
-    "marked": "^0.3.3",
+    "marked": "^4.0.10",
     "mdast": "^0.22.0",
     "mkdirp": "^0.5.1",
     "node-jsx": "^0.13.3",
