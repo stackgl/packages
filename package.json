@@ -25,7 +25,7 @@
     "babelify": "^6.1.2",
     "brfs": "^1.4.0",
     "browserify": "^10.2.4",
-    "cheerio": "^0.19.0",
+    "cheerio": "^1.0.0-rc.12",
     "cpr": "0.4.1",
     "css-modulesify": "^0.3.3",
     "cssnext": "^1.8.1",
