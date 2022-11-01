@@ -22,9 +22,9 @@
     ]
   },
   "dependencies": {
-    "babelify": "^6.1.2",
+    "babelify": "^10.0.0",
     "brfs": "^1.4.0",
-    "browserify": "^10.2.4",
+    "browserify": "^17.0.0",
     "cheerio": "^0.19.0",
     "cpr": "0.4.1",
     "css-modulesify": "^0.3.3",
@@ -43,7 +43,7 @@
     "language-shellscript": "atom/language-shellscript",
     "map-limit": "0.0.1",
     "marked": "^0.3.3",
-    "mdast": "^0.22.0",
+    "mdast": "^3.0.0",
     "mkdirp": "^0.5.1",
     "node-jsx": "^0.13.3",
     "postcss-import": "^6.1.1",
